@@ -18,16 +18,16 @@ ApplePy es una aplicación móvil de comercio electrónico desarrollada con **Fl
 - [Provider](https://pub.dev/packages/provider) - Gestión de estado.
 - [Google Fonts](https://fonts.google.com/) - Tipografía personalizada.
 
-## 📦 Instalación y Configuración
+## Instalación y Configuración
 
 Para ejecutar el proyecto localmente:
 
 1. **Clona el repositorio:**
    ```bash
    git clone [https://github.com/TU_USUARIO/applepy_ecommerce.git](https://github.com/TU_USUARIO/applepy_ecommerce.git)
-2. **Entra a la carpeta del proyecto**
+2. **Entra a la carpeta del proyecto: **
 cd applepy_ecommerce
-3. **Instala las dependencias**
+3. **Instala las dependencias: **
 flutter pub get
 4. **Ejecuta la aplicación:**
 flutter run
