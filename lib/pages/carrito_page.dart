@@ -5,6 +5,42 @@ import '../models/cart.dart';
 class CarritoPage extends StatelessWidget {
   const CarritoPage({super.key});
 
+  // Function to process purchase
+  void _pagarAhora(BuildContext context, Cart cart) {
+    // Show circle of charging
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) =>
+          const Center(child: CircularProgressIndicator(color: Colors.black)),
+    );
+
+    // 2. show a 2 secs delay
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pop(context);
+
+      //saving purchase on history
+      cart.completePurchase();
+
+      // 4. success message
+      showAboutDialog(
+        context: context,
+        applicationName: 'ApplePy',
+        applicationIcon: const Icon(
+          Icons.check_circle,
+          color: Colors.green,
+          size: 50,
+        ),
+        children: [
+          const Text('¡Compra Exitosa!'),
+          const Text(
+            'Tu pedido ha sido procesado correctamente. ¡Gracias por elegir ApplePy!',
+          ),
+        ],
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Cart>(
@@ -21,15 +57,13 @@ class CarritoPage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            //List of items in the cart
+            // list of items in the car
             Expanded(
-              //if the cart is empty, show a message
               child: value.userCart.isEmpty
                   ? const Center(child: Text('Tu carrito está vacío'))
                   : ListView.builder(
                       itemCount: value.userCart.length,
                       itemBuilder: (context, index) {
-                        //we get the individual product
                         Product individualProduct = value.userCart[index];
 
                         return Container(
@@ -56,7 +90,6 @@ class CarritoPage extends StatelessWidget {
                                 color: Colors.redAccent,
                               ),
                               onPressed: () {
-                                //delete item from cart
                                 value.removeItemFromCart(individualProduct);
                               },
                             ),
@@ -66,24 +99,27 @@ class CarritoPage extends StatelessWidget {
                     ),
             ),
 
-            //button to pay if the cart is not empty
+            // button to pay if cart is not empty
             if (value.userCart.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 25.0, top: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[900],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Pagar Ahora',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                child: GestureDetector(
+                  onTap: () => _pagarAhora(context, value),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[900],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Pagar Ahora',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),

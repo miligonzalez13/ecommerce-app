@@ -10,6 +10,25 @@ class Product {
 }
 
 class Cart extends ChangeNotifier {
+  void clearCart() {
+    userCart.clear();
+    notifyListeners();
+  }
+
+  List<Product> _purchaseHistory = [];
+
+  // Getter to read history
+  List<Product> get purchaseHistory => _purchaseHistory;
+
+  // Function to complete purchase
+  void completePurchase() {
+    // add purchase to history
+    _purchaseHistory.addAll(userCart);
+    // clear the cart
+    userCart.clear();
+    notifyListeners();
+  }
+
   //List of products available in the shop
   final List<Product> _shop = [
     Product(
