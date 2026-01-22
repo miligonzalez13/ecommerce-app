@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/components/bottom_nav_bar.dart';
 import 'package:ecommerceapp/pages/buscar_page.dart';
 import 'package:ecommerceapp/pages/carrito_page.dart';
+import 'package:ecommerceapp/pages/intro_page.dart';
 import 'package:ecommerceapp/pages/perfil_page.dart';
 import 'package:ecommerceapp/pages/shop_page.dart';
 
@@ -73,18 +74,25 @@ class _HomePageState extends State<HomePage> {
               child: Divider(color: Colors.grey[300]),
             ),
 
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 25.0),
               child: ListTile(
-                leading: Icon(Icons.home, color: Colors.black),
-                title: Text(
+                leading: const Icon(Icons.home, color: Colors.black),
+                title: const Text(
                   'Inicio',
                   style: TextStyle(color: Colors.black, fontSize: 14),
                 ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    (route) => false,
+                  );
+                },
               ),
             ),
-
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 25.0),
               child: ListTile(
                 leading: Icon(Icons.info, color: Colors.black),
@@ -92,10 +100,33 @@ class _HomePageState extends State<HomePage> {
                   'Acerca de',
                   style: TextStyle(color: Colors.black, fontSize: 14),
                 ),
+                onTap: () {
+                  Navigator.pop(context); // Cerramos el drawer
+                  showAboutDialog(
+                    context: context,
+                    applicationName: 'ApplePy',
+                    applicationVersion: '1.0.0',
+                    applicationIcon: Image.asset(
+                      'lib/images/images.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                    applicationLegalese: '© 2026 ApplePy Paraguay',
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Text(
+                          'La mejor tienda de tecnología premium en Paraguay. '
+                          'Ofrecemos productos originales con garantía oficial.',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
-
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 25.0),
               child: ListTile(
                 leading: Icon(Icons.logout, color: Colors.black),
@@ -103,6 +134,14 @@ class _HomePageState extends State<HomePage> {
                   'Cerrar Sesión',
                   style: TextStyle(color: Colors.black, fontSize: 14),
                 ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const IntroPage()),
+                    (route) => false,
+                  );
+                },
               ),
             ),
           ],
