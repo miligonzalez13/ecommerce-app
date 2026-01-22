@@ -11,7 +11,7 @@ ApplePy es una aplicación móvil de comercio electrónico desarrollada con **Fl
 - **Arquitectura Limpia:** Uso de Provider para la gestión de estado de forma eficiente.
 - **Diseño Responsive:** Adaptado para diferentes tamaños de pantalla en Android e iOS.
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - [Flutter](https://flutter.dev/) - Framework de UI.
 - [Dart](https://dart.dev/) - Lenguaje de programación.
