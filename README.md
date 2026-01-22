@@ -31,6 +31,7 @@ cd applepy_ecommerce
 flutter pub get
 4. **Ejecuta la aplicación:**
 flutter run
+
 **Requisitos Previos**
 - Flutter SDK (Versión estable)
 - Android Studio / VS Code
