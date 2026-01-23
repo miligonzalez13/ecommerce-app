@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//Structure of a product
 class Product {
   final String name;
   final String price;
@@ -10,26 +9,11 @@ class Product {
 }
 
 class Cart extends ChangeNotifier {
-  void clearCart() {
-    userCart.clear();
-    notifyListeners();
-  }
+  String _userAddress = "Asunción, Paraguay";
+  final List<Product> _purchaseHistory = [];
+  final List<Product> _userCart = [];
 
-  List<Product> _purchaseHistory = [];
-
-  // Getter to read history
-  List<Product> get purchaseHistory => _purchaseHistory;
-
-  // Function to complete purchase
-  void completePurchase() {
-    // add purchase to history
-    _purchaseHistory.addAll(userCart);
-    // clear the cart
-    userCart.clear();
-    notifyListeners();
-  }
-
-  //List of products available in the shop
+  // list of products
   final List<Product> _shop = [
     Product(
       name: 'iPhone 16 Normal',
@@ -53,22 +37,42 @@ class Cart extends ChangeNotifier {
     ),
   ];
 
-  //List of products in the user's cart
-  final List<Product> _userCart = [];
-
-  //Getters to access the lists
+  // getters
+  String get userAddress => _userAddress;
+  List<Product> get purchaseHistory => _purchaseHistory;
   List<Product> get shop => _shop;
   List<Product> get userCart => _userCart;
 
-  //Add item to cart
+  // methods
+
+  // add new adress
+  void updateUserAddress(String newAddress) {
+    _userAddress = newAddress;
+    notifyListeners();
+  }
+
+  // Add to cart
   void addItemToCart(Product product) {
     _userCart.add(product);
     notifyListeners();
   }
 
-  //Remove item from cart
+  // remove from cart
   void removeItemFromCart(Product product) {
     _userCart.remove(product);
+    notifyListeners();
+  }
+
+  // clean cart
+  void clearCart() {
+    _userCart.clear();
+    notifyListeners();
+  }
+
+  // finish purchase
+  void completePurchase() {
+    _purchaseHistory.addAll(_userCart);
+    _userCart.clear();
     notifyListeners();
   }
 }

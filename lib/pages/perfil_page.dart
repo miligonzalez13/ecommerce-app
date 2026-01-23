@@ -4,6 +4,48 @@ import 'package:flutter/material.dart';
 
 class PerfilPage extends StatelessWidget {
   const PerfilPage({super.key});
+  void _mostrarDialogoDireccion(BuildContext context) {
+    final TextEditingController _controller = TextEditingController(
+      text: "Asunción, Paraguay",
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: const Text("Editar Dirección"),
+        content: TextField(
+          controller: _controller,
+          decoration: const InputDecoration(
+            hintText: "Calle, Nro de casa, Ciudad",
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancelar", style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            onPressed: () {
+              // Aquí podrías guardar la dirección en un Provider en el futuro
+              print("Dirección actualizada: ${_controller.text}");
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Dirección guardada correctamente"),
+                ),
+              );
+            },
+            child: const Text("Guardar", style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +102,7 @@ class PerfilPage extends StatelessWidget {
                   'Mi Dirección',
                   'Asunción, Paraguay',
                   context,
-                  () {
-                    /* Acción futura */
-                  },
+                  () => _mostrarDialogoDireccion(context),
                 ),
                 _buildProfileItem(
                   Icons.credit_card,
