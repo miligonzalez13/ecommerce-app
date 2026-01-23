@@ -1,5 +1,6 @@
 import 'package:ecommerceapp/pages/intro_page.dart';
 import 'package:ecommerceapp/pages/historial_page.dart'; // Importa la página de historial
+import 'package:ecommerceapp/pages/metodo_pago_page.dart';
 import 'package:flutter/material.dart';
 
 class PerfilPage extends StatelessWidget {
@@ -8,7 +9,6 @@ class PerfilPage extends StatelessWidget {
     final TextEditingController _controller = TextEditingController(
       text: "Asunción, Paraguay",
     );
-
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -31,7 +31,6 @@ class PerfilPage extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
             onPressed: () {
-              // Aquí podrías guardar la dirección en un Provider en el futuro
               print("Dirección actualizada: ${_controller.text}");
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -43,6 +42,49 @@ class PerfilPage extends StatelessWidget {
             child: const Text("Guardar", style: TextStyle(color: Colors.white)),
           ),
         ],
+      ),
+    );
+  }
+
+  void _mostrarSoporte(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "¿Cómo podemos ayudarte?",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ListTile(
+              leading: const Icon(
+                Icons.chat_bubble_outline,
+                color: Colors.green,
+              ),
+              title: const Text("Chat de WhatsApp"),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.email_outlined, color: Colors.blue),
+              title: const Text("Enviar Correo Electrónico"),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.phone_in_talk_outlined,
+                color: Colors.black,
+              ),
+              title: const Text("Llamar al Centro de Ayuda"),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -110,7 +152,12 @@ class PerfilPage extends StatelessWidget {
                   'Visa **** 1234',
                   context,
                   () {
-                    /* Acción futura */
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MetodoPagoPage(),
+                      ),
+                    );
                   },
                 ),
                 _buildProfileItem(
@@ -118,9 +165,7 @@ class PerfilPage extends StatelessWidget {
                   'Soporte',
                   'Centro de ayuda ApplePy',
                   context,
-                  () {
-                    /* Acción futura */
-                  },
+                  () => _mostrarSoporte(context),
                 ),
 
                 const SizedBox(height: 20),
